@@ -8,32 +8,30 @@ using MySql.Data.MySqlClient;
 
 namespace Homework6.Service
 {
+
     public class TestpapersRepository
     {
+        CommandType cmdType = CommandType.Text;
         public TestpapersRepository()
         {
         }
-        public DataSet GetAll()
+        public DataSet SelectAll()
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "select * from testpapers";
-            DataSet dataSet = MysqlHelper.GetDataSet(cmdType, cmdText, null);
-            return dataSet;
+            return MysqlHelper.GetDataSet(cmdType, cmdText, null);
         }
 
-        public DataSet GetByPaperid(String id)
+        public DataSet SelectByid(int id)
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "select * from testpapers where id = ?id";
-            MySqlParameter param = new MySqlParameter("?id", MySqlDbType.String);
+            MySqlParameter param = new MySqlParameter("?id", MySqlDbType.Int32);
             param.Value = id;
             return MysqlHelper.GetDataSet(cmdType, cmdText, param);
         }
 
-        public int Add(TestpapersModel item)
+        public int Insert(TestpapersModel item)
         {
-            CommandType cmdType = CommandType.Text;
-            string cmdText = "INSERT INTO testpapers (`papername`, `introduce`, `select1_name`, `select1_score`, `select2_name`, `select2_score`, `select3_name`, `select3_score`, `select4_name`, `select4_score`) VALUES (?papername, ?introduce, ?select1_name,?select1_score,?select2_name,?select2_score,?select3_name,?select3_score,?select4_name,?select4_score`);";
+            string cmdText = "INSERT INTO testpapers (`papername`, `introduce`, `select1_name`, `select1_score`, `select2_name`, `select2_score`, `select3_name`, `select3_score`, `select4_name`, `select4_score`) VALUES (?papername, ?introduce, ?select1_name,?select1_score,?select2_name,?select2_score,?select3_name,?select3_score,?select4_name,?select4_score);";
             MySqlParameter[] param = new MySqlParameter[]{
                 new MySqlParameter("?papername", MySqlDbType.String),
                 new MySqlParameter("?introduce", MySqlDbType.String),
@@ -58,9 +56,8 @@ namespace Homework6.Service
             param[9].Value = item.select4_score;
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         }
-        public int Remove(int id)
+        public int Delete(int id)
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "Delete FROM testpapers WHERE `id`= ?id";
             MySqlParameter param = new MySqlParameter("?id", MySqlDbType.Int32);
             param.Value = id;
@@ -68,7 +65,6 @@ namespace Homework6.Service
         }
         public int Update(TestpapersModel item)
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "UPDATE `testpapers` SET `papername` = ?papername, `introduce` = ?introduce, `select1_name` = ?select1_name, `select1_score` = ?select1_score, `select2_name` = ?select2_name, `select2_score` = ?select2_score, `select3_name` = ?select3_name, `select3_score` = ?select3_score, `select4_name` = ?select4_name, `select4_score` = ?select4_score WHERE (`id`=?id);";
             MySqlParameter[] param = new MySqlParameter[]{
                 new MySqlParameter("?papername", MySqlDbType.String),

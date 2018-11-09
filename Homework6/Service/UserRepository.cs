@@ -1,37 +1,34 @@
 ﻿
-using Homework6.Service;
+using Homework6.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 
 
-namespace Homework6.Models
+namespace Homework6.Service
 {
     public class UserRepository
     {
+        CommandType cmdType = CommandType.Text;
         public UserRepository()
         {
         }
-        public DataSet GetAll()
+        public DataSet SelectAll()
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "select * from user";
-            DataSet dataSet = MysqlHelper.GetDataSet(cmdType, cmdText, null);
-            return dataSet;
+            return MysqlHelper.GetDataSet(cmdType, cmdText, null);
         }
 
-        public DataSet Get(String userno)
+        public DataSet SelectByUserno(String userno)
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "select * from user where userno = ?userno";
             MySqlParameter param = new MySqlParameter("?userno", MySqlDbType.String);
             param.Value = userno;
             return MysqlHelper.GetDataSet(cmdType, cmdText, param);
         }
 
-        public int Add(UserModel item)
+        public int Insert(UserModel item)
         {
-            CommandType cmdType = CommandType.Text;
             string cmdText = "INSERT INTO `user` (`userno`, `password`, `papers`, `grade`) VALUES (?userno, ?password,?papers,?grade);";
             MySqlParameter[] param = new MySqlParameter[]{
                 new MySqlParameter("?userno", MySqlDbType.String),

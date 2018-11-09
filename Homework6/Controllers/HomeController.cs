@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Homework6.Models;
 using System.Data;
 using Homework.Tool;
+using Homework6.Service;
 
 namespace Homework6.Controllers
 {
@@ -19,7 +20,7 @@ namespace Homework6.Controllers
         }
         public RedirectToRouteResult LoginSigin(string userno, string password,string type)
         {
-            DataSet data = userRepository.Get(userno);
+            DataSet data = userRepository.SelectByUserno(userno);
             if (data.Tables[0].Rows[0][1].ToString() == password)
             {
                 Debug.WriteLine("登录成功");
