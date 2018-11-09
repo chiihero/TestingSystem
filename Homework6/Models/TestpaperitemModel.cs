@@ -8,7 +8,7 @@ namespace Homework6.Models
     public class TestpaperitemModel
     {
         public int id { get; set; }
-        public string item { get; set; }
-        public int papaerid { get; set; }
+        public string question { get; set; }
+        public int paperid { get; set; }
     }
 }
