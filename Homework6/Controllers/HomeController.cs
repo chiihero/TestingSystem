@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Homework6.Models;
+using System.Data;
+using Homework.Tool;
 
 namespace Homework6.Controllers
 {
     public class HomeController : Controller
     {
+        UserRepository userRepository = new UserRepository();
         //public IActionResult Index()
         //{
         //    return View();
@@ -18,8 +17,23 @@ namespace Homework6.Controllers
         {
             return View();
         }
+        public RedirectToRouteResult LoginSigin(string userno, string password,string type)
+        {
+            DataSet data = userRepository.Get(userno);
+            if (data.Tables[0].Rows[0][1].ToString() == password)
+            {
+                Debug.WriteLine("登录成功");
+                if (type == "1")
+                    return RedirectToRoute(new { controller = "Student", action = "Index" });//重定向     
+                if (type=="2")
+                    return RedirectToRoute(new { controller = "Admin", action = "Index" });//重定向     
 
-        public IActionResult About()
+            }
+            return RedirectToRoute(new { controller = "Home", action = "Login" });//重定向        
+        }
+
+
+            public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 

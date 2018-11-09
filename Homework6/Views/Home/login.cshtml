@@ -12,13 +12,12 @@
             <h4 class="textcolor text-center">第一次登陆后请尽快更改初始密码</h4>
         </div>
         <div id="loginbox">
-            <form id="loginform" action="/signIn" method="post">
+            <form id="loginform" action="Home/LoginSigin" method="post">
                 <div class="form-group">
-                    <select name="type" class="selectpicker mb-3" title="选择用户类型">
+                    <select name="type" class="mb-3" title="选择用户类型">
                         <option value="1">学生登录</option>
-                        <option value="3">管理人员登录</option>
+                        <option value="2">管理人员登录</option>
                     </select>
-
                 </div>
                 <div class="form-group mb-3">
                     <!--账号:-->
@@ -60,7 +59,7 @@
                                 <i class="fa fa-user"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="ruserno" name="userno" placeholder="请输入账号">
+                        <input type="text" class="form-control" id="userno" name="userno" placeholder="请输入账号">
                     </div>
                     <!-- 输入id -->
                     <div class="edit input-group">
