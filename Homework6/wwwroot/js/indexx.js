@@ -36,10 +36,10 @@ $('#sub_login').click(function () {
         alert("密码格式不正确!");
         return false;
     }
-    //console.time("测试加密速度: ");
-    //password.value = encrypt(password);
-    //console.timeEnd("测试加密速度: ");
-    //console.log(password.value)
+    console.time("测试加密速度: ");
+    password.value = encrypt(password);
+    console.timeEnd("测试加密速度: ");
+    console.log(password.value)
 });
 
 $('#sub_register').click(function () {
@@ -74,10 +74,10 @@ $('#sub_register').click(function () {
         alert("两次密码不一致!");
         return false;
     }
-    //console.time("测试加密速度: ");
-    //password.value = encrypt(password);
-    //console.timeEnd("测试加密速度: ");
-    //console.log(password.value)
+    console.time("测试加密速度: ");
+    password.value = encrypt(password);
+    console.timeEnd("测试加密速度: ");
+    console.log(password.value)
 });
 
 function encrypt(str) {
