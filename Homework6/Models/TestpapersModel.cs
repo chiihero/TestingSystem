@@ -7,7 +7,7 @@ namespace Homework6.Models
 {
     public class TestpapersModel
     {
-        public int id { get; set; }
+        public int pid { get; set; }
         public string papername { get; set; }
         public string introduce { get; set; }
         public string select1_name { get; set; }

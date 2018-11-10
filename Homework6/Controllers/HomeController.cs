@@ -25,7 +25,12 @@ namespace Homework6.Controllers
             {
                 Debug.WriteLine("登录成功");
                 if (type == "1")
-                    return RedirectToRoute(new { controller = "Student", action = "Index" });//重定向     
+                    return RedirectToRoute(new
+                    {
+                        controller = "Student",
+                        action = "Index",
+                        id = userno,
+                    });//重定向     
                 if (type=="2")
                     return RedirectToRoute(new { controller = "Admin", action = "Index" });//重定向     
 

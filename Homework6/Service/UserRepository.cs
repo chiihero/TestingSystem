@@ -29,17 +29,14 @@ namespace Homework6.Service
 
         public int Insert(UserModel item)
         {
-            string cmdText = "INSERT INTO `user` (`userno`, `password`, `papers`, `grade`) VALUES (?userno, ?password,?papers,?grade);";
+            string cmdText = "INSERT INTO `user` (`userno`, `password`) VALUES (?userno, ?password);";
             MySqlParameter[] param = new MySqlParameter[]{
                 new MySqlParameter("?userno", MySqlDbType.String),
                 new MySqlParameter("?password", MySqlDbType.String),
-                new MySqlParameter("?papers", MySqlDbType.String),
-                new MySqlParameter("?grade", MySqlDbType.Int32),
             };
             param[0].Value = item.userno;
             param[1].Value = item.password;
-            param[2].Value = item.papers;
-            param[3].Value = item.grade;
+
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         }
         //public int Remove(int id)
@@ -72,5 +69,5 @@ namespace Homework6.Service
         //    return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         //}
     }
-  
+
 }

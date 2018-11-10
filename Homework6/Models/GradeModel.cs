@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace Homework6.Models
 {
-    public class TestpaperitemModel
+    public class GradeModel
     {
-        public int iid { get; set; }
-        public string question { get; set; }
+        public int gid { get; set; }
+        public string userno { get; set; }
         public int paperid { get; set; }
+        public int grade { get; set; }
     }
 }

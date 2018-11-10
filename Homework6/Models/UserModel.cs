@@ -10,7 +10,5 @@ namespace Homework6.Models
         public string userno { get; set; }
         public string password { get; set; }
         public int type { get; set; }
-        public string papers { get; set; }
-        public int grade { get; set; }
     }
 }

@@ -21,11 +21,11 @@ namespace Homework6.Service
             return MysqlHelper.GetDataSet(cmdType, cmdText, null);
         }
 
-        public DataSet SelectByid(int id)
+        public DataSet SelectByid(int pid)
         {
-            string cmdText = "select * from testpapers where id = ?id";
-            MySqlParameter param = new MySqlParameter("?id", MySqlDbType.Int32);
-            param.Value = id;
+            string cmdText = "select * from testpapers where pid = ?pid";
+            MySqlParameter param = new MySqlParameter("?pid", MySqlDbType.Int32);
+            param.Value = pid;
             return MysqlHelper.GetDataSet(cmdType, cmdText, param);
         }
 
@@ -56,16 +56,16 @@ namespace Homework6.Service
             param[9].Value = item.select4_score;
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         }
-        public int Delete(int id)
+        public int Delete(int pid)
         {
-            string cmdText = "Delete FROM testpapers WHERE `id`= ?id";
-            MySqlParameter param = new MySqlParameter("?id", MySqlDbType.Int32);
-            param.Value = id;
+            string cmdText = "Delete FROM testpapers WHERE `pid`= ?pid";
+            MySqlParameter param = new MySqlParameter("?pid", MySqlDbType.Int32);
+            param.Value = pid;
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         }
         public int Update(TestpapersModel item)
         {
-            string cmdText = "UPDATE `testpapers` SET `papername` = ?papername, `introduce` = ?introduce, `select1_name` = ?select1_name, `select1_score` = ?select1_score, `select2_name` = ?select2_name, `select2_score` = ?select2_score, `select3_name` = ?select3_name, `select3_score` = ?select3_score, `select4_name` = ?select4_name, `select4_score` = ?select4_score WHERE (`id`=?id);";
+            string cmdText = "UPDATE `testpapers` SET `papername` = ?papername, `introduce` = ?introduce, `select1_name` = ?select1_name, `select1_score` = ?select1_score, `select2_name` = ?select2_name, `select2_score` = ?select2_score, `select3_name` = ?select3_name, `select3_score` = ?select3_score, `select4_name` = ?select4_name, `select4_score` = ?select4_score WHERE (`pid`=?pid);";
             MySqlParameter[] param = new MySqlParameter[]{
                 new MySqlParameter("?papername", MySqlDbType.String),
                 new MySqlParameter("?introduce", MySqlDbType.String),

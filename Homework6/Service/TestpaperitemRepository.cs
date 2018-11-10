@@ -48,13 +48,13 @@ namespace Homework6.Service
         }
         public int Update(TestpaperitemModel item)
         {
-            string cmdText = "UPDATE `testpaperitem` SET `question` = ?question, `paperid`= ?paperid WHERE (`id`=?id);";
+            string cmdText = "UPDATE `testpaperitem` SET `question` = ?question, `paperid`= ?paperid WHERE (`iid`=?iid);";
             MySqlParameter[] param = new MySqlParameter[]{
-                new MySqlParameter("?id", MySqlDbType.Int32),
+                new MySqlParameter("?iid", MySqlDbType.Int32),
                 new MySqlParameter("?question", MySqlDbType.String),
                 new MySqlParameter("?paperid", MySqlDbType.Int32),
             };
-            param[0].Value = item.id;
+            param[0].Value = item.iid;
             param[1].Value = item.question;
             param[2].Value = item.paperid;
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);

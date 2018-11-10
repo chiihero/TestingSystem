@@ -1,5 +1,7 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using Homework.Tool;
+using Homework6.Models;
 using Homework6.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,53 +11,38 @@ namespace Homework6.Controllers
     {
         TestpapersRepository testpapersRepository = new TestpapersRepository();
         TestpaperitemRepository testpaperitemRepository = new TestpaperitemRepository();
-        public IActionResult Index()
+        GradeRepository gradeRepository = new GradeRepository();
+
+        public IActionResult Index(string id)
         {
-            DataSet item = testpapersRepository.SelectAll();
-            if (item == null)
-            {
-                return null;
-            }
-            ViewBag.Papers = item;
+            ViewData["Userno"] = id;
+            ViewData["Userno2"] = "22222";
+
+            ViewBag.Papers = testpapersRepository.SelectAll();
             return View();
         }
-        public ActionResult Paper(int id)
+        public ActionResult Paper(string id, int paperid)
         {
-            ViewData["Message"] = "Your application description page."+ id;
-            DataSet item = testpaperitemRepository.SelectByPaperid(id);
-            if (item == null)
-            {
-                return null;
-            }
-            ViewBag.Paperitem = item;
+            Debug.WriteLine(id + "   " + paperid);
+            ViewData["Userno"] = id;
+
+            ViewBag.Paperitem = testpaperitemRepository.SelectByPaperid(paperid);
+            ViewBag.Papers = testpapersRepository.SelectByid(paperid);
+
             return View();
         }
-        public string GetAllTestPaper()
+        public string AddGrade([FromBody]dynamic Json)
         {
-            DataSet item = testpapersRepository.SelectAll();
-            if (item == null)
-            {
-                return null;
-            }
-            return DatasetToJson.Dataset2Json(item);
+            GradeModel gradeModel = new GradeModel();
+            gradeModel.userno = Json.userno;
+            gradeModel.paperid = Json.papers;
+            gradeModel.grade = Json.grade;
+            Debug.WriteLine(gradeModel.grade + "!!!!!!!!!!!!");
+
+            gradeRepository.Insert(gradeModel);
+
+            return null;
         }
-        public string GetTestPaper(int id)
-        {
-            DataSet item = testpapersRepository.SelectByid(id);
-            if (item == null)
-            {
-                return null;
-            }
-            return DatasetToJson.Dataset2Json(item);
-        }
-        public string GetTestPaperitem(int paperid)
-        {
-            DataSet item = testpaperitemRepository.SelectByPaperid(paperid);
-            if (item == null)
-            {
-                return null;
-            }
-            return DatasetToJson.Dataset2Json(item);
-        }
+   
     }
 }
