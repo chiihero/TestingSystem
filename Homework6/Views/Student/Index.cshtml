@@ -1,4 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Student";
 }
-aaaaaaaaaaaaaaaaaaaaaa  
+<div class="container">
+    <h2>心理测试</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>测试名称</th>
+                <th>测试简述</th>
+                <th>测试</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Row in ViewBag.Papers.Tables[0].Rows)
+            {
+                int i = 0;
+                <tr>
+                    @foreach (var Columnin in ViewBag.Papers.Tables[0].Columns)
+                    {
+                        i++;
+                        if (i < 4)
+                        {
+                            <th>@Row[Columnin]</th>
+                        }
+
+                    }
+                    <th>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Student/Paper?id=@Row[0]'">进入测试</button>
+                    </th>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div> 
+<script>
+    function
+
+</script>

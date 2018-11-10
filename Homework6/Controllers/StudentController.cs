@@ -11,10 +11,23 @@ namespace Homework6.Controllers
         TestpaperitemRepository testpaperitemRepository = new TestpaperitemRepository();
         public IActionResult Index()
         {
+            DataSet item = testpapersRepository.SelectAll();
+            if (item == null)
+            {
+                return null;
+            }
+            ViewBag.Papers = item;
             return View();
         }
-        public ActionResult Paper()
+        public ActionResult Paper(int id)
         {
+            ViewData["Message"] = "Your application description page."+ id;
+            DataSet item = testpaperitemRepository.SelectByPaperid(id);
+            if (item == null)
+            {
+                return null;
+            }
+            ViewBag.Paperitem = item;
             return View();
         }
         public string GetAllTestPaper()

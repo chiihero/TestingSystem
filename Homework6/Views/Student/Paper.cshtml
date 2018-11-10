@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+<h3>@ViewData["Message"]</h3>
+
+<label for="name">内联的复选框和单选按钮的实例</label>
+<div>
+    <label class="radio-inline">
+        <input type="radio" name="Radio1" value="option1" checked> 选项 1
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="Radio2" value="option2"> 选项 2
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="Radio3" value="option2"> 选项 3
+    </label>
+    <label class="radio-inline">
+        <input type="radio" name="Radio4" value="option2"> 选项 4
+    </label>
+</div>
+
+<script>
+    function getRadioValue() {
+        var radios = document.getElementsByName("radioname");
+        var value;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                value = radios[i].value;
+                break;
+            }
+            return value;
+        }
+
+</script>
