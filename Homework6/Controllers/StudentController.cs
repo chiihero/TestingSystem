@@ -16,7 +16,6 @@ namespace Homework6.Controllers
         public IActionResult Index(string id)
         {
             ViewData["Userno"] = id;
-            ViewData["Userno2"] = "22222";
 
             ViewBag.Papers = testpapersRepository.SelectAll();
             return View();
@@ -31,6 +30,7 @@ namespace Homework6.Controllers
 
             return View();
         }
+
         public string AddGrade([FromBody]dynamic Json)
         {
             GradeModel gradeModel = new GradeModel();

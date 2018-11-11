@@ -15,7 +15,6 @@ namespace Homework6.Service
 
         // 用于缓存参数的HASH表
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
-
         /// <summary>
         ///  给定连接的数据库用假设参数执行一个sql命令（不返回数据集）
         /// </summary>

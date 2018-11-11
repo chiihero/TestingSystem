@@ -1,3 +1,107 @@
 ﻿@{
     ViewData["Title"] = "Admin";
 }
+<style type="text/css">
+    .edit_title{
+        /*width: 900px;*/
+        /*max-width:1050px;*/
+        height: 70px;
+        line-height: 70px;
+        background-color: #f7f7f7;
+        /*position: fixed;*/
+        /*bottom: 0;*/
+        z-index: 1000;
+    }
+</style>
+<h3>测试试卷：@ViewBag.Papers.Tables[0].Rows[0][1]</h3>
+<div class="container">
+    <nav class="navbar navbar-light fixed-bottom edit_title" role="navigation">
+        <i class="fa fa-bars fa-lg"></i>
+        <form class="form-inline">
+            <div class="form-group ">
+                <label class="sr-only" for="name">问题</label>
+                <input type="text" class="form-control" id="question" placeholder="请输入问题">
+            </div>
+
+        </form>
+        <button type="submit" class="btn btn-default" id="questionadd">添加</button>
+    </nav>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>题目</th>
+                    <th>题目名称</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][3]</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][5]</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][7]</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][9]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 0; }
+                @foreach (var Row in ViewBag.Paperitem.Tables[0].Rows)
+                {
+                    i++;
+                    <tr>
+                        <th>@i</th>
+                        <th>@Row[1]</th>
+                        <th>
+                            <label class="radio-inline">
+                                <input type="radio" name="Radio_@i" value="option1"> 选项 1
+                            </label>
+                        </th>
+                        <th>
+                            <label class="radio-inline">
+                                <input type="radio" name="Radio_@i" value="option2"> 选项 2
+                            </label>
+                        </th>
+                        <th>
+                            <label class="radio-inline">
+                                <input type="radio" name="Radio_@i" value="option3"> 选项 3
+                            </label>
+                        </th>
+                        <th>
+                            <label class="radio-inline">
+                                <input type="radio" name="Radio_@i" value="option4"> 选项 4
+                            </label>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>
+<script>
+    var Datas = {
+        create: function () {
+            paperid: "";
+            question: "";
+            return Datas;
+        }
+    }
+    $('#questionadd').click(function () {
+        paperid = @ViewBag.Papers.Tables[0].Rows[0][0]
+        question = $('#question').val();
+        var newDatas = Datas.create();
+        newDatas.paperid = paperid;
+        newDatas.question = question;
+        $.ajax({
+            url: "/Admin/AddQuestion",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(newDatas),
+            success: function (data) {
+                if (data >= 1)
+                    //alert("success")
+                    location.reload();
+                else
+                    alert("添加失败")
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+            }
+        });
+    })
+
+</script>

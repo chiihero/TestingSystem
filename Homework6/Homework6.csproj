@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Admin\Paperitem.cshtml" />
     <Content Remove="Views\Home\Index.cshtml" />
   </ItemGroup>
 
@@ -27,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Admin\PaperAdd.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Admin\Paper.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -32,7 +32,12 @@ namespace Homework6.Controllers
                         id = userno,
                     });//重定向     
                 if (type=="2")
-                    return RedirectToRoute(new { controller = "Admin", action = "Index" });//重定向     
+                    return RedirectToRoute(new
+                    {
+                        controller = "Admin",
+                        action = "Index",
+                        id = userno,
+                    });//重定向     
 
             }
             return RedirectToRoute(new { controller = "Home", action = "Login" });//重定向        

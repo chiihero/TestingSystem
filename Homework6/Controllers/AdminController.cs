@@ -7,6 +7,7 @@ using Homework6.Models;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Homework6.Controllers
 {
@@ -16,31 +17,27 @@ namespace Homework6.Controllers
         TestpaperitemRepository testpaperitemRepository = new TestpaperitemRepository();
 
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index(string id)
+        {
+            ViewData["Userno"] = id;
+            ViewBag.Papers = testpapersRepository.SelectAll();
+            return View();
+        }
+        public ActionResult Paper(int paperid)
+        {
+            ViewBag.Paperitem = testpaperitemRepository.SelectByPaperid(paperid);
+            ViewBag.Papers = testpapersRepository.SelectByid(paperid);
+            return View();
+        }
+        public ActionResult PaperAdd()
         {
             return View();
         }
-        public ActionResult Paper()
+
+        public int AddTestPaper(TestpapersModel testpapers)
         {
-            return View();
-        }
-        public int AddTestPaper([FromBody]dynamic Json)
-        {
-            TestpapersModel testpapersModel = new TestpapersModel
-            {
-                papername = Json.papername,
-                introduce = Json.introduce,
-                select1_name = Json.select1_name,
-                select1_score = Json.select1_score,
-                select2_name = Json.select2_name,
-                select2_score = Json.select2_score,
-                select3_name = Json.select3_name,
-                select3_score = Json.select3_score,
-                select4_name = Json.select4_name,
-                select4_score = Json.select4_score
-            };
-            testpapersRepository.Insert(testpapersModel);
-            return 1;
+            Debug.WriteLine(testpapers.papername + "!!!!!!!!!!!!");
+            return testpapersRepository.Insert(testpapers);
         }
         public int AddQuestion([FromBody]dynamic Json)
         {
@@ -49,8 +46,7 @@ namespace Homework6.Controllers
                 question = Json.question,
                 paperid = Json.paperid,
             };
-            testpaperitemRepository.Insert(testpaperitemModel);
-            return 1;
+            return testpaperitemRepository.Insert(testpaperitemModel);
         }
     }
 }
