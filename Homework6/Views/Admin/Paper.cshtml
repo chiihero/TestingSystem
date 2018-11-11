@@ -92,9 +92,11 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(newDatas),
             success: function (data) {
-                if (data >= 1)
+                if (data >= 1) {
                     //alert("success")
                     location.reload();
+                    $('#question').val("");
+                }
                 else
                     alert("添加失败")
             },

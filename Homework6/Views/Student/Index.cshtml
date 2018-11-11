@@ -2,7 +2,7 @@
     ViewData["Title"] = "Student";
 }
 <h2>
-    @ViewData["Userno"]
+    欢迎用户：@ViewData["Userno"]
 </h2>
 <div class="container">
     <h2>心理测试</h2>
@@ -29,10 +29,24 @@
                         }
                     }
                     <th>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Student/Paper?id=@ViewData["Userno"]&paperid=@Row[0]'">进入测试</button>
+                        <button id="@Row[0]" type="button" class="btn btn-primary" onclick="window.location.href='/Student/Paper?id=@ViewData["Userno"]&paperid=@Row[0]'">进入测试</button>
                     </th>
                 </tr>
             }
         </tbody>
     </table>
 </div> 
+<script>
+    $(document).ready(function () {
+        @foreach (var Row in ViewBag.Grade.Tables[0].Rows)
+        {
+            <text>
+            $('#@Row[2]').attr("disabled", "disabled")
+            $('#@Row[2]').text("已经测试,分数 @Row[3] 分");
+            </text>
+        }
+        })
+
+
+
+</script>

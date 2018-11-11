@@ -20,7 +20,7 @@ namespace Homework6.Service
             return MysqlHelper.GetDataSet(cmdType, cmdText, null);
         }
 
-        public DataSet SelectByUserno(int userno)
+        public DataSet SelectByUserno(String userno)
         {
             string cmdText = "select * from grade where userno = ?userno";
             MySqlParameter param = new MySqlParameter("?userno", MySqlDbType.String);

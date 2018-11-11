@@ -4,7 +4,8 @@ using Homework6.Models;
 using System.Data;
 using Homework.Tool;
 using Homework6.Service;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
 namespace Homework6.Controllers
 {
     public class HomeController : Controller
@@ -24,6 +25,8 @@ namespace Homework6.Controllers
             if (data.Tables[0].Rows[0][1].ToString() == password)
             {
                 Debug.WriteLine("登录成功");
+                //HttpContext.Session.SetString("user", userno);
+
                 if (type == "1")
                     return RedirectToRoute(new
                     {

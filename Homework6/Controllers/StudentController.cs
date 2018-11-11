@@ -16,7 +16,7 @@ namespace Homework6.Controllers
         public IActionResult Index(string id)
         {
             ViewData["Userno"] = id;
-
+            ViewBag.Grade = gradeRepository.SelectByUserno(id);
             ViewBag.Papers = testpapersRepository.SelectAll();
             return View();
         }
