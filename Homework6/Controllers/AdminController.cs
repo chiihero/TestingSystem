@@ -87,13 +87,16 @@ namespace Homework6.Controllers
             };
             return testpaperitemRepository.Update(testpaperitemModel);
         }
-        public RedirectToRouteResult QuestionDel(int questionid)
+        public RedirectToRouteResult QuestionDel(int questionid,int paper)
         {
             testpaperitemRepository.Delete(questionid);
+            //HttpContext.Session.SetString("user", userno);
+
             return RedirectToRoute(new
             {
                 controller = "Admin",
                 action = "Paper",
+                paperid = paper
             });//重定向          
         }
     }

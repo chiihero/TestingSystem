@@ -3,50 +3,44 @@
 }
 <style type="text/css">
     .edit_title {
-        /*width: 900px;*/
-        /*max-width:1050px;*/
-        height: 170px;
-        line-height: 70px;
         background-color: #f7f7f7;
-        /*position: fixed;*/
-        /*bottom: 0;*/
         z-index: 1000;
     }
 </style>
 <h3>
     测试试卷：@ViewBag.Papers.Tables[0].Rows[0][1]---分数乘积：@ViewBag.Papers.Tables[0].Rows[0][3]
 </h3>
+<button type="button" class="btn btn-default" onclick="window.location.href = '/Admin/Index'">返回首页</button>
 
 <div class="container">
     <nav class="navbar navbar-light fixed-bottom edit_title" role="navigation">
         <i class="fa fa-bars fa-lg"></i>
         <form class="form-inline">
-            <div class="col-md-5">
-                <div class="form-group">
+            <div class="row">
+                <div class="col-xs-1">
                     <label class="sr-only" for="name">问题</label>
-                    <input type="text" class="form-control" id="question" placeholder="请输入问题">
+                    <input type="text" class="form-control input-sm" id="question" placeholder="请输入问题">
                 </div>
-                <div class="form-group ">
+                <div class="col-xs-1">
                     <label class="sr-only" for="name">选择一</label>
-                    <input type="text" class="form-control" id="select1_score" placeholder="选择一">
+                    <input type="text" class="form-control input-sm" id="select1_score" placeholder="选择一">
                 </div>
-                <div class="form-group ">
+                <div class="col-xs-1">
                     <label class="sr-only" for="name">选择二</label>
                     <input type="text" class="form-control" id="select2_score" placeholder="选择二">
                 </div>
-            </div>
-                <div class="form-group ">
+                <div class="col-xs-1">
                     <label class="sr-only" for="name">选择三</label>
                     <input type="text" class="form-control" id="select3_score" placeholder="选择三">
                 </div>
-                <div class="form-group ">
+                <div class="col-xs-1">
                     <label class="sr-only" for="name">选择四</label>
                     <input type="text" class="form-control" id="select4_score" placeholder="选择四">
                 </div>
-        </form>
-        <button type="submit" class="btn btn-default" id="questionadd">添加</button>
-        <button type="button" class="btn btn-default" onclick="window.location.href = '/Admin/Index'">返回首页</button>
+                <button type="submit" class="btn btn-default" id="questionadd">添加</button>
 
+            </div>
+        </form>
     </nav>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -58,9 +52,7 @@
                     <th>@ViewBag.Papers.Tables[0].Rows[0][5]</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][6]</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][7]</th>
-                    @*<th>修改</th>*@
                     <th>删除</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -68,28 +60,25 @@
                 @foreach (var Row in ViewBag.Paperitem.Tables[0].Rows)
                 {
                     i++;
-                <tr>
-                    <th>@i</th>
-                    <th>@Row[1]</th>
-                    <th>
-                        <a>@Row[3]</a>
-                    </th>
-                    <th>
-                        <a>@Row[4]</a>
-                    </th>
-                    <th>
-                        <a>@Row[5]</a>
-                    </th>
-                    <th>
-                        <a>@Row[6]</a>
-                    </th>
-                    @*<th>
-                        <button type="button" class="btn btn-primary" onclick="questionedit(@Row[0])">修改</button>
-                    </th>*@
-                    <th>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/QuestionDel?questionid=@Row[0]'">删除</button>
-                    </th>
-                </tr>
+                    <tr>
+                        <th>@i</th>
+                        <th>@Row[1]</th>
+                        <th>
+                            <a>@Row[3]</a>
+                        </th>
+                        <th>
+                            <a>@Row[4]</a>
+                        </th>
+                        <th>
+                            <a>@Row[5]</a>
+                        </th>
+                        <th>
+                            <a>@Row[6]</a>
+                        </th>
+                        <th>
+                            <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/QuestionDel?questionid=@Row[0]&paper=@ViewBag.Papers.Tables[0].Rows[0][0]'">删除</button>
+                        </th>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -106,18 +95,31 @@
         create: function () {
             paperid: "";
             question: "";
+            select1_score: "";
+            select2_score: "";
+            select3_score: "";
+            select4_score: "";
             return Datas;
         }
     }
     $('#questionadd').click(function () {
         paperid = @ViewBag.Papers.Tables[0].Rows[0][0]
         question = $('#question').val();
+        select1_score = $('#select1_score').val();
+        select2_score = $('#select2_score').val();
+        select3_score = $('#select3_score').val();
+        select4_score = $('#select4_score').val();
+
         var newDatas = Datas.create();
         newDatas.paperid = paperid;
         newDatas.question = question;
+        newDatas.select1_score = select1_score;
+        newDatas.select2_score = select2_score;
+        newDatas.select3_score = select3_score;
+        newDatas.select4_score = select4_score;
         $.ajax({
             url: "/Admin/AddQuestion",
-            type: "POST",
+            type: "post",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(newDatas),
             success: function (data) {
@@ -133,28 +135,7 @@
                 alert("请求失败，消息：" + textStatus + "  " + errorThrown);
             }
         });
+        return false//阻止表单发送get
     })
-    //function questionedit(questionid) {
-    //    var newDatas = Datas.create();
-    //    newDatas.paperid = paperid;
-    //    newDatas.question = question;
-    //    $.ajax({
-    //        url: "/Admin/AddQuestion",
-    //        type: "POST",
-    //        contentType: "application/json; charset=utf-8",
-    //        data: JSON.stringify(newDatas),
-    //        success: function (data) {
-    //            if (data >= 1) {
-    //                //alert("success")
-    //                location.reload();
-    //                $('#question').val("");
-    //            }
-    //            else
-    //                alert("添加失败")
-    //        },
-    //        error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //            alert("请求失败，消息：" + textStatus + "  " + errorThrown);
-    //        }
-    //    })
-    //}
+
 </script>

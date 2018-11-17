@@ -13,9 +13,9 @@
                 <th>题目</th>
                 <th>题目名称</th>
                 <th>@ViewBag.Papers.Tables[0].Rows[0][4]</th>
+                <th>@ViewBag.Papers.Tables[0].Rows[0][5]</th>
                 <th>@ViewBag.Papers.Tables[0].Rows[0][6]</th>
-                <th>@ViewBag.Papers.Tables[0].Rows[0][8]</th>
-                <th>@ViewBag.Papers.Tables[0].Rows[0][10]</th>
+                <th>@ViewBag.Papers.Tables[0].Rows[0][7]</th>
 
             </tr>
         </thead>
@@ -29,22 +29,22 @@
                     <th>@Row[1]</th>
                     <th>
                         <label class="radio-inline">
-                            <input type="radio" name="Radio_@i" value="option1"> 选项 1
+                            <input type="radio" name="Radio_@i" value="@Row[3]"> 选项 1
                         </label>
                     </th>
                     <th>
                         <label class="radio-inline">
-                            <input type="radio" name="Radio_@i" value="option2"> 选项 2
+                            <input type="radio" name="Radio_@i" value="@Row[4]"> 选项 2
                         </label>
                     </th>
                     <th>
                         <label class="radio-inline">
-                            <input type="radio" name="Radio_@i" value="option3"> 选项 3
+                            <input type="radio" name="Radio_@i" value="@Row[5]"> 选项 3
                         </label>
                     </th>
                     <th>
                         <label class="radio-inline">
-                            <input type="radio" name="Radio_@i" value="option4"> 选项 4
+                            <input type="radio" name="Radio_@i" value="@Row[6]"> 选项 4
                         </label>
                     </th>
                 </tr>
@@ -56,18 +56,12 @@
 <button type="button" class="btn btn-default" onclick="window.location.href = '/Student/Index'">返回</button>
 
 <script>
-
     $(document).ready(function () {
         var id = "@ViewData["Userno"]"
         if (id == "") {
             window.location.href = '/';
         };
     })
-
-    var score1 = @ViewBag.Papers.Tables[0].Rows[0][5];
-    var score2 = @ViewBag.Papers.Tables[0].Rows[0][7];
-    var score3 = @ViewBag.Papers.Tables[0].Rows[0][9];
-    var score4 = @ViewBag.Papers.Tables[0].Rows[0][11];
     var gradeproduct = @ViewBag.Papers.Tables[0].Rows[0][3];
     var Datas = {
     create: function () {
@@ -77,26 +71,26 @@
     }
     }
     $("#test").click(function () {
-    var radio1_num = $("input:checked[value = 'option1']").length
-    var radio2_num = $("input:checked[value = 'option2']").length
-    var radio3_num = $("input:checked[value = 'option3']").length
-    var radio4_num = $("input:checked[value = 'option4']").length
-        var score = (radio1_num * score1 + radio2_num * score2 + radio3_num * score3 + radio4_num * score4) * gradeproduct
-    var newDatas = Datas.create();
-    newDatas.papers = @ViewBag.Papers.Tables[0].Rows[0][0];
-    newDatas.grade = score;
-    $.ajax({
-    url: "/Student/AddGrade",
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    data: JSON.stringify(newDatas),
-    success: function () {
-    alert("你的测试分数为：" + score)
-    window.location.href = '/Student/Index'
-    },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    alert("请求失败，消息：" + textStatus + "  " + errorThrown);
-    }
+        var vals = 0;
+        $("input:checked").each(function () {
+            vals += Number($(this).val())
+        });
+        var score = vals * gradeproduct
+        var newDatas = Datas.create();
+        newDatas.papers = @ViewBag.Papers.Tables[0].Rows[0][0];
+        newDatas.grade = score;
+        $.ajax({
+            url: "/Student/AddGrade",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(newDatas),
+        success: function () {
+            alert("你的测试分数为：" + score)
+            window.location.href = '/Student/Index'
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+        }
     });
     })
 </script>
