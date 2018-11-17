@@ -27,25 +27,22 @@
                     <input type="text" class="form-control" id="question" placeholder="请输入问题">
                 </div>
                 <div class="form-group ">
-                    <label class="sr-only" for="name">分数</label>
+                    <label class="sr-only" for="name">选择一</label>
                     <input type="text" class="form-control" id="select1_score" placeholder="选择一">
                 </div>
                 <div class="form-group ">
-                    <label class="sr-only" for="name">分数</label>
+                    <label class="sr-only" for="name">选择二</label>
                     <input type="text" class="form-control" id="select2_score" placeholder="选择二">
                 </div>
             </div>
                 <div class="form-group ">
-                    <label class="sr-only" for="name">分数</label>
+                    <label class="sr-only" for="name">选择三</label>
                     <input type="text" class="form-control" id="select3_score" placeholder="选择三">
                 </div>
                 <div class="form-group ">
-                    <label class="sr-only" for="name">分数</label>
+                    <label class="sr-only" for="name">选择四</label>
                     <input type="text" class="form-control" id="select4_score" placeholder="选择四">
                 </div>
-
-            
- 
         </form>
         <button type="submit" class="btn btn-default" id="questionadd">添加</button>
         <button type="button" class="btn btn-default" onclick="window.location.href = '/Admin/Index'">返回首页</button>
@@ -57,11 +54,11 @@
                 <tr>
                     <th>题目</th>
                     <th>题目名称</th>
-                    <th>@ViewBag.Papers.Tables[0].Rows[0][4] 分数：</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][4]</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][5]</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][6]</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][7]</th>
-                    <th>修改</th>
+                    @*<th>修改</th>*@
                     <th>删除</th>
 
                 </tr>
@@ -75,35 +72,22 @@
                     <th>@i</th>
                     <th>@Row[1]</th>
                     <th>
-                        @*<label class="radio-inline">
-                <input type="radio" name="Radio_@i" value="option1"> 选项 1
-            </label>*@
-                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[3]">
-
+                        <a>@Row[3]</a>
                     </th>
                     <th>
-                        @*<label class="radio-inline">
-                <input type="radio" name="Radio_@i" value="option2"> 选项 2
-            </label>*@
-                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[4]">
+                        <a>@Row[4]</a>
                     </th>
                     <th>
-                        @*<label class="radio-inline">
-                <input type="radio" name="Radio_@i" value="option3"> 选项 3
-            </label>*@
-                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[5]">
+                        <a>@Row[5]</a>
                     </th>
                     <th>
-                        @*<label class="radio-inline">
-                <input type="radio" name="Radio_@i" value="option4"> 选项 4
-            </label>*@
-                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[6]">
+                        <a>@Row[6]</a>
                     </th>
+                    @*<th>
+                        <button type="button" class="btn btn-primary" onclick="questionedit(@Row[0])">修改</button>
+                    </th>*@
                     <th>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/PaperEdit?paperid=@Row[0]'">修改</button>
-                    </th>
-                    <th>
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/PaperDel?paperid=@Row[0]'">删除</button>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/QuestionDel?questionid=@Row[0]'">删除</button>
                     </th>
                 </tr>
                 }
@@ -150,5 +134,27 @@
             }
         });
     })
-
+    //function questionedit(questionid) {
+    //    var newDatas = Datas.create();
+    //    newDatas.paperid = paperid;
+    //    newDatas.question = question;
+    //    $.ajax({
+    //        url: "/Admin/AddQuestion",
+    //        type: "POST",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: JSON.stringify(newDatas),
+    //        success: function (data) {
+    //            if (data >= 1) {
+    //                //alert("success")
+    //                location.reload();
+    //                $('#question').val("");
+    //            }
+    //            else
+    //                alert("添加失败")
+    //        },
+    //        error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //            alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+    //        }
+    //    })
+    //}
 </script>
