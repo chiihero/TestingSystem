@@ -25,25 +25,25 @@ namespace Homework6.Controllers
             if (data.Tables[0].Rows[0][1].ToString() == password)
             {
                 Debug.WriteLine("登录成功");
-                //HttpContext.Session.SetString("user", userno);
+                HttpContext.Session.SetString("user", userno);
 
                 if (type == "1")
                     return RedirectToRoute(new
                     {
                         controller = "Student",
                         action = "Index",
-                        id = userno,
+                        //id = userno,
                     });//重定向     
                 if (type=="2")
                     return RedirectToRoute(new
                     {
                         controller = "Admin",
                         action = "Index",
-                        id = userno,
+                        //id = userno,
                     });//重定向     
 
             }
-            return RedirectToRoute(new { controller = "Home", action = "Login" });//重定向        
+            return RedirectToRoute("Home","Login");//重定向        
         }
 
 

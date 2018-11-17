@@ -12,10 +12,11 @@
             <tr>
                 <th>题目</th>
                 <th>题目名称</th>
-                <th>@ViewBag.Papers.Tables[0].Rows[0][3]</th>
-                <th>@ViewBag.Papers.Tables[0].Rows[0][5]</th>
-                <th>@ViewBag.Papers.Tables[0].Rows[0][7]</th>
-                <th>@ViewBag.Papers.Tables[0].Rows[0][9]</th>
+                <th>@ViewBag.Papers.Tables[0].Rows[0][4]</th>
+                <th>@ViewBag.Papers.Tables[0].Rows[0][6]</th>
+                <th>@ViewBag.Papers.Tables[0].Rows[0][8]</th>
+                <th>@ViewBag.Papers.Tables[0].Rows[0][10]</th>
+
             </tr>
         </thead>
         <tbody>
@@ -52,53 +53,50 @@
     </table>
 </div>
 <button id="test" type="button" class="btn btn-primary">提交测试</button>
+<button type="button" class="btn btn-default" onclick="window.location.href = '/Student/Index'">返回</button>
 
 <script>
-    var score1 = @ViewBag.Papers.Tables[0].Rows[0][4];
-    var score2 = @ViewBag.Papers.Tables[0].Rows[0][6];
-    var score3 = @ViewBag.Papers.Tables[0].Rows[0][8];
-    var score4 = @ViewBag.Papers.Tables[0].Rows[0][10];
-    var Datas = {
-        create: function () {
-            userno: "";
-            papers: "";
-            grade: "";
-            return Datas;
-        }
-    }
-    $("#test").click(function () {
-        var radio1_num = $("input:checked[value = 'option1']").length
-        var radio2_num = $("input:checked[value = 'option2']").length
-        var radio3_num = $("input:checked[value = 'option3']").length
-        var radio4_num = $("input:checked[value = 'option4']").length
-        var score = radio1_num * score1 + radio2_num * score2 + radio3_num * score3 + radio4_num * score4
-        var newDatas = Datas.create();
-        newDatas.userno = @ViewData["Userno"];
-        newDatas.papers = @ViewBag.Papers.Tables[0].Rows[0][0];
-        newDatas.grade = score;
-        $.ajax({
-            url: "/Student/AddGrade",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(newDatas),
-            success: function () {
-                alert("你的测试分数为：" + score)
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("请求失败，消息：" + textStatus + "  " + errorThrown);
-            }
-        });
+
+    $(document).ready(function () {
+        var id = "@ViewData["Userno"]"
+        if (id == "") {
+            window.location.href = '/';
+        };
     })
 
-    //function getGrade() {
-    //    var radios = document.get("radioname");
-    //    var value;
-    //    for (var i = 0; i < radios.length; i++) {
-    //        if (radios[i].checked) {
-    //            value = radios[i].value;
-    //            break;
-    //        }
-    //        return value;
-    //    }
-
+    var score1 = @ViewBag.Papers.Tables[0].Rows[0][5];
+    var score2 = @ViewBag.Papers.Tables[0].Rows[0][7];
+    var score3 = @ViewBag.Papers.Tables[0].Rows[0][9];
+    var score4 = @ViewBag.Papers.Tables[0].Rows[0][11];
+    var gradeproduct = @ViewBag.Papers.Tables[0].Rows[0][3];
+    var Datas = {
+    create: function () {
+    papers: "";
+    grade: "";
+    return Datas;
+    }
+    }
+    $("#test").click(function () {
+    var radio1_num = $("input:checked[value = 'option1']").length
+    var radio2_num = $("input:checked[value = 'option2']").length
+    var radio3_num = $("input:checked[value = 'option3']").length
+    var radio4_num = $("input:checked[value = 'option4']").length
+        var score = (radio1_num * score1 + radio2_num * score2 + radio3_num * score3 + radio4_num * score4) * gradeproduct
+    var newDatas = Datas.create();
+    newDatas.papers = @ViewBag.Papers.Tables[0].Rows[0][0];
+    newDatas.grade = score;
+    $.ajax({
+    url: "/Student/AddGrade",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(newDatas),
+    success: function () {
+    alert("你的测试分数为：" + score)
+    window.location.href = '/Student/Index'
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    alert("请求失败，消息：" + textStatus + "  " + errorThrown);
+    }
+    });
+    })
 </script>

@@ -18,15 +18,15 @@
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">选择1名称:</span>
+                    <span class="input-group-text">总分乘积:</span>
                 </div>
-                <input type="text" class="form-control col-4" id="select1_name" name="select1_name" value="">
+                <input type="text" class="form-control col-4" id="gradeproduct" name="gradeproduct" value="">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">选择1分数:</span>
+                    <span class="input-group-text">选择1名称:</span>
                 </div>
-                <input type="text" class="form-control col-4" id="select1_score" name="select1_score" value="">
+                <input type="text" class="form-control col-4" id="select1_name" name="select1_name" value="">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -36,21 +36,9 @@
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">选择2分数:</span>
-                </div>
-                <input type="text" class="form-control col-4" id="select2_score" name="select2_score" value="">
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
                     <span class="input-group-text">选择3名称:</span>
                 </div>
                 <input type="text" class="form-control col-4" id="select3_name" name="select3_name" value="">
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">选择3分数:</span>
-                </div>
-                <input type="text" class="form-control col-4" id="select3_score" name="select3_score" value="">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -58,15 +46,18 @@
                 </div>
                 <input type="text" class="form-control col-4" id="select4_name" name="select4_name" value="">
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">选择4分数:</span>
-                </div>
-                <input type="text" class="form-control col-4" id="select4_score" name="select4_score" value="">
-            </div>
             <div style="padding-top: 15px">
                 <button type="submit" class="btn btn-primary">添加</button>
+                <button type="button" class="btn btn-default" onclick="window.location.href = '/Admin/Index'">返回</button>
             </div>
         </form>
     </div>
 </div>
+<script>
+$(document).ready(function () {
+    var id = "@ViewData["Userno"]"
+    if (id == "") {
+        window.location.href = '/';
+    };
+})
+</script>

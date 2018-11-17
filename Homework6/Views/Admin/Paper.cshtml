@@ -2,10 +2,10 @@
     ViewData["Title"] = "Admin";
 }
 <style type="text/css">
-    .edit_title{
+    .edit_title {
         /*width: 900px;*/
         /*max-width:1050px;*/
-        height: 70px;
+        height: 170px;
         line-height: 70px;
         background-color: #f7f7f7;
         /*position: fixed;*/
@@ -13,18 +13,43 @@
         z-index: 1000;
     }
 </style>
-<h3>测试试卷：@ViewBag.Papers.Tables[0].Rows[0][1]</h3>
+<h3>
+    测试试卷：@ViewBag.Papers.Tables[0].Rows[0][1]---分数乘积：@ViewBag.Papers.Tables[0].Rows[0][3]
+</h3>
+
 <div class="container">
     <nav class="navbar navbar-light fixed-bottom edit_title" role="navigation">
         <i class="fa fa-bars fa-lg"></i>
         <form class="form-inline">
-            <div class="form-group ">
-                <label class="sr-only" for="name">问题</label>
-                <input type="text" class="form-control" id="question" placeholder="请输入问题">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="sr-only" for="name">问题</label>
+                    <input type="text" class="form-control" id="question" placeholder="请输入问题">
+                </div>
+                <div class="form-group ">
+                    <label class="sr-only" for="name">分数</label>
+                    <input type="text" class="form-control" id="select1_score" placeholder="选择一">
+                </div>
+                <div class="form-group ">
+                    <label class="sr-only" for="name">分数</label>
+                    <input type="text" class="form-control" id="select2_score" placeholder="选择二">
+                </div>
             </div>
+                <div class="form-group ">
+                    <label class="sr-only" for="name">分数</label>
+                    <input type="text" class="form-control" id="select3_score" placeholder="选择三">
+                </div>
+                <div class="form-group ">
+                    <label class="sr-only" for="name">分数</label>
+                    <input type="text" class="form-control" id="select4_score" placeholder="选择四">
+                </div>
 
+            
+ 
         </form>
         <button type="submit" class="btn btn-default" id="questionadd">添加</button>
+        <button type="button" class="btn btn-default" onclick="window.location.href = '/Admin/Index'">返回首页</button>
+
     </nav>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -32,47 +57,67 @@
                 <tr>
                     <th>题目</th>
                     <th>题目名称</th>
-                    <th>@ViewBag.Papers.Tables[0].Rows[0][3]</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][4] 分数：</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][5]</th>
+                    <th>@ViewBag.Papers.Tables[0].Rows[0][6]</th>
                     <th>@ViewBag.Papers.Tables[0].Rows[0][7]</th>
-                    <th>@ViewBag.Papers.Tables[0].Rows[0][9]</th>
+                    <th>修改</th>
+                    <th>删除</th>
+
                 </tr>
             </thead>
             <tbody>
-                @{ int i = 0; }
+                @{int i = 0;}
                 @foreach (var Row in ViewBag.Paperitem.Tables[0].Rows)
                 {
                     i++;
-                    <tr>
-                        <th>@i</th>
-                        <th>@Row[1]</th>
-                        <th>
-                            <label class="radio-inline">
-                                <input type="radio" name="Radio_@i" value="option1"> 选项 1
-                            </label>
-                        </th>
-                        <th>
-                            <label class="radio-inline">
-                                <input type="radio" name="Radio_@i" value="option2"> 选项 2
-                            </label>
-                        </th>
-                        <th>
-                            <label class="radio-inline">
-                                <input type="radio" name="Radio_@i" value="option3"> 选项 3
-                            </label>
-                        </th>
-                        <th>
-                            <label class="radio-inline">
-                                <input type="radio" name="Radio_@i" value="option4"> 选项 4
-                            </label>
-                        </th>
-                    </tr>
+                <tr>
+                    <th>@i</th>
+                    <th>@Row[1]</th>
+                    <th>
+                        @*<label class="radio-inline">
+                <input type="radio" name="Radio_@i" value="option1"> 选项 1
+            </label>*@
+                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[3]">
+
+                    </th>
+                    <th>
+                        @*<label class="radio-inline">
+                <input type="radio" name="Radio_@i" value="option2"> 选项 2
+            </label>*@
+                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[4]">
+                    </th>
+                    <th>
+                        @*<label class="radio-inline">
+                <input type="radio" name="Radio_@i" value="option3"> 选项 3
+            </label>*@
+                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[5]">
+                    </th>
+                    <th>
+                        @*<label class="radio-inline">
+                <input type="radio" name="Radio_@i" value="option4"> 选项 4
+            </label>*@
+                        <input type="text" class="form-control col-4" name="select_@i" value="@Row[6]">
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/PaperEdit?paperid=@Row[0]'">修改</button>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='/Admin/PaperDel?paperid=@Row[0]'">删除</button>
+                    </th>
+                </tr>
                 }
             </tbody>
         </table>
     </div>
-    </div>
+</div>
 <script>
+    $(document).ready(function () {
+    var id = "@ViewData["Userno"]"
+    if (id == "") {
+        window.location.href = '/';
+    };
+    })
     var Datas = {
         create: function () {
             paperid: "";

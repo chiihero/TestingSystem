@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Homework.Tool;
 using Homework6.Models;
 using Homework6.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Homework6.Controllers
@@ -13,16 +14,18 @@ namespace Homework6.Controllers
         TestpaperitemRepository testpaperitemRepository = new TestpaperitemRepository();
         GradeRepository gradeRepository = new GradeRepository();
 
-        public IActionResult Index(string id)
+        public IActionResult Index()
         {
+            string id = HttpContext.Session.GetString("user");
             ViewData["Userno"] = id;
             ViewBag.Grade = gradeRepository.SelectByUserno(id);
             ViewBag.Papers = testpapersRepository.SelectAll();
             return View();
         }
-        public ActionResult Paper(string id, int paperid)
+        public ActionResult Paper(int paperid)
         {
-            Debug.WriteLine(id + "   " + paperid);
+
+            string id = HttpContext.Session.GetString("user");
             ViewData["Userno"] = id;
 
             ViewBag.Paperitem = testpaperitemRepository.SelectByPaperid(paperid);
@@ -34,7 +37,7 @@ namespace Homework6.Controllers
         public string AddGrade([FromBody]dynamic Json)
         {
             GradeModel gradeModel = new GradeModel();
-            gradeModel.userno = Json.userno;
+            gradeModel.userno = HttpContext.Session.GetString("user");
             gradeModel.paperid = Json.papers;
             gradeModel.grade = Json.grade;
             Debug.WriteLine(gradeModel.grade + "!!!!!!!!!!!!");

@@ -31,29 +31,23 @@ namespace Homework6.Service
 
         public int Insert(TestpapersModel item)
         {
-            string cmdText = "INSERT INTO testpapers (`papername`, `introduce`, `select1_name`, `select1_score`, `select2_name`, `select2_score`, `select3_name`, `select3_score`, `select4_name`, `select4_score`) VALUES (?papername, ?introduce, ?select1_name,?select1_score,?select2_name,?select2_score,?select3_name,?select3_score,?select4_name,?select4_score);";
+            string cmdText = "INSERT INTO testpapers (`papername`, `introduce`, `gradeproduct`, `select1_name`, `select2_name`, `select3_name`, `select4_name`) VALUES (?papername, ?introduce, ?gradeproduct, ?select1_name,?select2_name,?select3_name,?select4_name);";
             MySqlParameter[] param = new MySqlParameter[]{
                 new MySqlParameter("?papername", MySqlDbType.String),
                 new MySqlParameter("?introduce", MySqlDbType.String),
+                new MySqlParameter("?gradeproduct", MySqlDbType.Float),
                 new MySqlParameter("?select1_name", MySqlDbType.String),
-                new MySqlParameter("?select1_score", MySqlDbType.Float),
                 new MySqlParameter("?select2_name", MySqlDbType.String),
-                new MySqlParameter("?select2_score", MySqlDbType.Float),
                 new MySqlParameter("?select3_name", MySqlDbType.String),
-                new MySqlParameter("?select3_score", MySqlDbType.Float),
                 new MySqlParameter("?select4_name", MySqlDbType.String),
-                new MySqlParameter("?select4_score", MySqlDbType.Float),
             };
             param[0].Value = item.papername;
             param[1].Value = item.introduce;
-            param[2].Value = item.select1_name;
-            param[3].Value = item.select1_score;
+            param[2].Value = item.gradeproduct;
+            param[3].Value = item.select1_name;
             param[4].Value = item.select2_name;
-            param[5].Value = item.select2_score;
-            param[6].Value = item.select3_name;
-            param[7].Value = item.select3_score;
-            param[8].Value = item.select4_name;
-            param[9].Value = item.select4_score;
+            param[5].Value = item.select3_name;
+            param[6].Value = item.select4_name;
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         }
         public int Delete(int pid)
@@ -63,32 +57,6 @@ namespace Homework6.Service
             param.Value = pid;
             return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
         }
-        public int Update(TestpapersModel item)
-        {
-            string cmdText = "UPDATE `testpapers` SET `papername` = ?papername, `introduce` = ?introduce, `select1_name` = ?select1_name, `select1_score` = ?select1_score, `select2_name` = ?select2_name, `select2_score` = ?select2_score, `select3_name` = ?select3_name, `select3_score` = ?select3_score, `select4_name` = ?select4_name, `select4_score` = ?select4_score WHERE (`pid`=?pid);";
-            MySqlParameter[] param = new MySqlParameter[]{
-                new MySqlParameter("?papername", MySqlDbType.String),
-                new MySqlParameter("?introduce", MySqlDbType.String),
-                new MySqlParameter("?select1_name", MySqlDbType.String),
-                new MySqlParameter("?select1_score", MySqlDbType.Float),
-                new MySqlParameter("?select2_name", MySqlDbType.String),
-                new MySqlParameter("?select2_score", MySqlDbType.Float),
-                new MySqlParameter("?select3_name", MySqlDbType.String),
-                new MySqlParameter("?select3_score", MySqlDbType.Float),
-                new MySqlParameter("?select4_name", MySqlDbType.String),
-                new MySqlParameter("?select4_score", MySqlDbType.Float),
-            };
-            param[0].Value = item.papername;
-            param[1].Value = item.introduce;
-            param[2].Value = item.select1_name;
-            param[3].Value = item.select1_score;
-            param[4].Value = item.select2_name;
-            param[5].Value = item.select2_score;
-            param[6].Value = item.select3_name;
-            param[7].Value = item.select3_score;
-            param[8].Value = item.select4_name;
-            param[9].Value = item.select4_score;
-            return MysqlHelper.ExecuteNonQuery(cmdType, cmdText, param);
-        }
+     
     }
 }
