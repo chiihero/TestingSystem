@@ -1,9 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Admin";
 }
-<h2>
-    欢迎用户：@ViewData["Userno"]
-</h2>
+<div class="row">
+    <h2>
+        欢迎用户：@ViewData["Userno"]
+    </h2>
+    <button class="btn" onclick="window.location.href='/Home/Login'">退出</button>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-9">
@@ -21,7 +24,6 @@
                 <th>测试简述</th>
                 <th>添加试题</th>
                 <th>修改</th>
-
                 <th>删除</th>
             </tr>
         </thead>

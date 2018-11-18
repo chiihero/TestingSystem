@@ -2,9 +2,12 @@
     ViewData["Title"] = "Student";
 }
 
-<h2>
-    欢迎用户：@ViewData["Userno"]
-</h2>
+<div class="row">
+    <h2>
+        欢迎用户：@ViewData["Userno"]
+    </h2>
+    <button class="btn" onclick="window.location.href='/Home/Login'">退出</button>
+</div>
 <div class="container">
     <h2>心理测试</h2>
     <table class="table table-hover">

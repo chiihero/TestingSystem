@@ -12,13 +12,13 @@
             <h4 class="textcolor text-center">第一次登陆后请尽快更改初始密码</h4>
         </div>
         <div id="loginbox">
-            <form id="loginform" action="Home/LoginSigin" method="post">
-                <div class="form-group">
+            <form id="loginform" action="/Home/LoginSigin" method="post">
+                @*<div class="form-group">
                     <select name="type" class="mb-3" title="选择用户类型">
                         <option value="1">学生登录</option>
                         <option value="2">管理人员登录</option>
                     </select>
-                </div>
+                </div>*@
                 <div class="form-group mb-3">
                     <!--账号:-->
                     <div class="input-group">
@@ -45,12 +45,13 @@
                         记住账号
                     </div>
                     <div class="float-right">
-                        <a href="#registerform" class="to-register grey">忘记密码?</a>
+                        <a href="#registerform" class="to-register grey">注册</a>
                     </div>
                     <button type="submit" class="btn btn-success btn-block" id="sub_login">登录</button>
                 </div>
             </form>
-            <form id="registerform" name="registerform" action="/exit" method="post">
+            <form id="registerform" name="registerform" action="/Home/Register" method="post">
+                <input type="hidden" name="type" value="1" />
                 <div class="form-group">
                     <!--账号:-->
                     <div class="input-group">
@@ -59,16 +60,7 @@
                                 <i class="fa fa-user"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="userno" name="userno" placeholder="请输入账号">
-                    </div>
-                    <!-- 输入id -->
-                    <div class="edit input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-id-card"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" id="ridcard" name="idcard" placeholder="用户身份证">
+                        <input type="text" class="form-control" id="ruserno" name="userno" placeholder="请输入账号">
                     </div>
                     <!-- 输入密码 -->
                     <div class="edit input-group">
@@ -86,7 +78,7 @@
                                 <i class="fa fa-lock"></i>
                             </span>
                         </div>
-                        <input type="password" class="form-control" id="rrelpassword" name="relpassword"
+                        <input type="password" class="form-control" id="relpassword" name="relpassword"
                                placeholder="请确认密码" />
                     </div>
                 </div>
@@ -94,12 +86,12 @@
                     <div class="float-right">
                         <a href="#login" class="flip-link to-login grey">返回登录</a>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block" id="sub_register" value="修改密码">修改密码</button>
+                    <button type="submit" class="btn btn-success btn-block" id="sub_register" value="注册">注册</button>
                     <input type="reset" class="btn btn-primary btn-block" value="重置" />
                 </div>
             </form>
         </div>
     </div>
 </div>
-    <script src="~/js/indexx.js" type="text/javascript" charset="uft-8">
-    </script>
+<script src="~/js/index.js" type="text/javascript" charset="uft-8">
+</script>
