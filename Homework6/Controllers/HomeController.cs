@@ -2,25 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Homework6.Models;
 using System.Data;
-using Homework.Tool;
 using Homework6.Service;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
+
 namespace Homework6.Controllers
 {
     public class HomeController : Controller
     {
         UserRepository userRepository = new UserRepository();
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+
         public IActionResult Login()
         {
             if (HttpContext.Session.GetString("user") != null)
             {
-                HttpContext.Session.SetString("user","");
-                HttpContext.Session.Clear();
+                HttpContext.Session.SetString("user", "");
+                //HttpContext.Session.Clear();
             }
             return View();
         }
@@ -30,8 +26,13 @@ namespace Homework6.Controllers
             if (data.Tables[0].Rows.Count == 0)//内容是否获取到
             {
                 Debug.WriteLine("账号密码错误");
+                return RedirectToRoute(new
+                {
+                    controller = "Home",
+                    action = "Login",
+                });//重定向 
             }
-            else if (data.Tables[0].Rows[0][1].ToString() == user.password)//对比密码
+            if (data.Tables[0].Rows[0][1].ToString() == user.password)//对比密码
             {
                 Debug.WriteLine("登录成功");
                 HttpContext.Session.SetString("user", user.userno);
@@ -57,7 +58,7 @@ namespace Homework6.Controllers
             {
                 controller = "Home",
                 action = "Login",
-            }); ;//重定向        
+            });//重定向        
         }
 
         public RedirectToActionResult Register(UserModel user)
@@ -73,8 +74,7 @@ namespace Homework6.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
+            ViewData["Message"] = HttpContext.Session.GetString("user");
             return View();
         }
 

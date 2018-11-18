@@ -5,7 +5,7 @@
     var ee = loc.split('#');
 
     if (ee[1] = 'registerform' && ee[1] != undefined) {
-        $('#loginbox').css({ 'height': '300px' });
+        $('#loginbox').css({ 'height': '210px' });
         login.css({ 'z-index': '100', 'opacity': '0' });
         register.css({ 'z-index': '200', 'opacity': '1', 'display': 'block' });
     }

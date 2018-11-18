@@ -18,6 +18,7 @@ namespace Homework6.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            string user = HttpContext.Session.GetString("user");
             ViewData["Userno"] = HttpContext.Session.GetString("user");
             ViewBag.Papers = testpapersRepository.SelectAll();
             return View();
